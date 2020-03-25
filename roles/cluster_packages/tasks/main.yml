@@ -1,0 +1,24 @@
+---
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+  tags: prerequisite
+
+- name: Install bash-completion
+  yum:
+    name: bash-completion-2.1-6.el7.noarch
+    state: present
+  tags: prerequisite
+
+- name: Install haproxy
+  yum:
+    name: haproxy
+    state: present
+  tags: prerequisite
+
+- name: Install keepalived
+  yum:
+    name: keepalived.x86_64
+    state: present
+  tags: prerequisite

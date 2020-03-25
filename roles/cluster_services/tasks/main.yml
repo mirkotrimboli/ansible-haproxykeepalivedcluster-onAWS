@@ -1,0 +1,25 @@
+---
+- name: Ensure SELinux is set to disabled mode
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: SELINUX=disabled
+  tags: configuration
+
+- name: Make sure haproxy is stopped and disabled
+  systemd:
+    name: haproxy
+    enabled: no
+    state: stopped
+  tags: configuration
+
+- name: Make sure keepalived is stopped and disabled
+  systemd:
+    name: keepalived
+    enabled: no
+    state: stopped
+  tags: configuration
+
+- name: Reloading daemons
+  command: systemctl daemon-reload
+  tags: configuration

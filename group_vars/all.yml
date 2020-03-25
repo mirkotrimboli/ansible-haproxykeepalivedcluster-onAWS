@@ -1,0 +1,10 @@
+network: 10.206.210.128/27
+gateway: 10.206.210.129
+hostname1: testkeeproxy01
+hostname2: testkeeproxy02
+ipnode1: 10.206.210.144
+ipnode2: 10.206.210.147
+ipvip: 10.206.210.170
+pri_net_int: eth0
+sec_net_int: eth1
+aws_netint_id: eni-08770b5291f7eee93
