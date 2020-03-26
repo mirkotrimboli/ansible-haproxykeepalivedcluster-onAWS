@@ -109,19 +109,13 @@
       STATE=$3
 
       case $STATE in
-        "MASTER") /usr/local/bin/aws-escalation.sh
-            exit 0
-            /usr/bin/systemctl start haproxy.service
+        "MASTER") /usr/local/bin/aws-escalation.sh; /usr/bin/systemctl start haproxy.service
             exit 0
             ;;
-        "BACKUP") /usr/bin/systemctl stop haproxy.service
-            exit 0
-            /usr/local/bin/aws-de-escalation.sh
+        "BACKUP") /usr/bin/systemctl stop haproxy.service; /usr/local/bin/aws-de-escalation.sh
             exit 0
             ;;
-        "FAULT")  /usr/bin/systemctl stop haproxy.service
-            exit 0
-            /usr/local/bin/aws-de-escalation.sh
+        "FAULT")  /usr/bin/systemctl stop haproxy.service; /usr/local/bin/aws-de-escalation.sh
             exit 0
             ;;
         *)        echo "unknown state"
