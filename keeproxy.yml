@@ -3,8 +3,18 @@
   become: yes
   roles:
     - { role: cluster_packages, tags: [ 'prerequisite' ] }
-#    - { role: cluster_services, tags: [ 'prerequisite' ] }
-#    - { role: cluster_configurations, tags: [ 'configuration' ] }
+    - { role: cluster_services, tags: [ 'prerequisite' ] }
+- hosts: cluster
+  become: yes
+  roles:
+    - { role: cluster_configcentos, tags: [ 'configuration' ] }
+  when: (ansible_facts['distribution'] == "CentOS")
+
+- hosts: cluster
+  become: yes
+  roles:
+    - { role: cluster_configubuntu, tags: [ 'configuration' ] }
+  when: (ansible_facts['distribution'] == "Ubuntu")
 
 #- hosts: master
 #  become: yes

@@ -1,0 +1,30 @@
+---
+- name: Create file track.sh
+  copy:
+    dest: /usr/local/bin/track.sh
+    content: |
+      #!/bin/bash
+
+      TYPE=$1
+      NAME=$2
+      STATE=$3
+
+      case $STATE in
+        "MASTER") /usr/local/bin/aws-escalation.sh; /usr/bin/systemctl start haproxy.service
+            exit 0
+            ;;
+        "BACKUP") /usr/bin/systemctl stop haproxy.service; /usr/local/bin/aws-de-escalation.sh
+            exit 0
+            ;;
+        "FAULT")  /usr/bin/systemctl stop haproxy.service; /usr/local/bin/aws-de-escalation.sh
+            exit 0
+            ;;
+        *)        echo "unknown state"
+            exit 1
+            ;;
+      esac
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  tags: configuration
