@@ -4,4 +4,4 @@
   roles:
     - { role: cluster_packages, tags: [ 'prerequisite' ] }
     - { role: cluster_services, tags: [ 'prerequisite' ] }
-#    - { role: cluster_scripts, tags: [ 'prerequisite' ] }
+#    - { role: cluster_configurations, tags: [ 'configuration' ] }

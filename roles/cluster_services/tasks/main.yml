@@ -4,22 +4,32 @@
     path: /etc/selinux/config
     regexp: '^SELINUX='
     line: SELINUX=disabled
-  tags: configuration
+  tags: prerequisite
+
+- name: Create file aws.sh
+  copy:
+    dest: /etc/profile.d/aws.sh
+    content: |
+      export PATH=$PATH:/usr/local/bin
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
 
 - name: Make sure haproxy is stopped and disabled
   systemd:
     name: haproxy
     enabled: no
     state: stopped
-  tags: configuration
+  tags: prerequisite
 
 - name: Make sure keepalived is stopped and disabled
   systemd:
     name: keepalived
     enabled: no
     state: stopped
-  tags: configuration
+  tags: prerequisite
 
 - name: Reloading daemons
   command: systemctl daemon-reload
-  tags: configuration
+  tags: prerequisite

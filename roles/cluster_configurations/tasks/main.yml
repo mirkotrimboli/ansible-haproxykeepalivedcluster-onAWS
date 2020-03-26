@@ -1,0 +1,146 @@
+---
+- name: Create route file for default interface
+  become: true
+  template: 
+    src: routedefault.j2
+    dest: /etc/sysconfig/network-scripts/route-{{ pri_net_int }} 
+    owner: root
+    group: root
+    mode: 0644
+  register: copy_default_route
+  tags: configuration
+
+- name: Create route file for vip interface
+  become: true
+  template: 
+    src: routevip.j2
+    dest: /etc/sysconfig/network-scripts/route-{{ sec_net_int }}
+    owner: root 
+    group: root 
+    mode: 0644
+  register: copy_vip_route
+  tags: configuration
+
+- name: Create rule file for default interface
+  become: true
+  template:
+    src: ruledefault.j2
+    dest: /etc/sysconfig/network-scripts/rule-{{ pri_net_int }}
+    owner: root
+    group: root
+    mode: 0644
+  register: copy_rule_default
+  tags: configuration
+
+- name: Create rule file for vip interface
+  become: true
+  template:
+    src: rulevipdev.j2
+    dest: /etc/sysconfig/network-scripts/rule-{{ sec_net_int }}
+    owner: root
+    group: root
+    mode: 0644
+  register: copy_rule_vip
+  tags: configuration
+
+- name: Create vip interface config file
+  become: true
+  template:
+    src: ifcfg-eth.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-{{ sec_net_int  }}
+    owner: root
+    group: root
+    mode: 0644
+  register: create_config_file_eth
+  tags: configuration  
+
+- name: Insert 100 t1 entry in /etc/iproute2/rt_tables
+  become: true
+  lineinfile:
+    path: /etc/iproute2/rt_tables
+    line: '100 t1'
+  tags: configuration
+
+- name: Insert 101 t2 entry in /etc/iproute2/rt_tables
+  become: true
+  lineinfile:
+    path: /etc/iproute2/rt_tables
+    line: '101 t2'
+  tags: configuration
+
+- name: Copy sysctl parameter
+  become: true
+  template:
+    src: 98-2netaws.conf.j2
+    dest: /etc/sysctl.d/98-2netaws.conf
+    owner: root
+    group: root
+    mode: 0644
+  tags: configuration
+
+- name: Create aws-escalation script
+  become: true
+  template:
+    src: aws-escalation.j2
+    dest: /usr/local/bin/aws-escalation.sh
+    owner: root
+    group: root
+    mode: 0755
+  tags: configuration
+
+- name: Create aws-de-escalation script
+  become: true
+  template:
+    src: aws-de-escalation.j2
+    dest: /usr/local/bin/aws-de-escalation.sh
+    owner: root
+    group: root
+    mode: 0755
+  tags: configuration
+
+- name: Create keepalived config file
+  become: true
+  template:
+    src: keepalived-conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0644
+  tags: configuration
+
+- name: Create file track.sh
+  copy:
+    dest: /usr/local/bin/track.sh
+    content: |
+      #!/bin/bash
+
+      TYPE=$1
+      NAME=$2
+      STATE=$3
+
+      case $STATE in
+        "MASTER") /usr/local/bin/aws-escalation.sh
+            exit 0
+            /usr/bin/systemctl start haproxy.service
+            exit 0
+            ;;
+        "BACKUP") /usr/bin/systemctl stop haproxy.service
+            exit 0
+            /usr/local/bin/aws-de-escalation.sh
+            exit 0
+            ;;
+        "FAULT")  /usr/bin/systemctl stop haproxy.service
+            exit 0
+            /usr/local/bin/aws-de-escalation.sh
+            exit 0
+            ;;
+        *)        echo "unknown state"
+            exit 1
+            ;;
+      esac
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  tags: configuration
+
