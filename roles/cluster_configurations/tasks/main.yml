@@ -1,5 +1,5 @@
 ---
-- name: Create route file for default interface
+- name: Create route file for default interface for Centos
   become: true
   template: 
     src: routedefault.j2
@@ -7,10 +7,11 @@
     owner: root
     group: root
     mode: 0644
+  when: (ansible_facts['distribution'] == "CentOS")
   register: copy_default_route
   tags: configuration
 
-- name: Create route file for vip interface
+- name: Create route file for vip interface for Centos
   become: true
   template: 
     src: routevip.j2
@@ -18,10 +19,11 @@
     owner: root 
     group: root 
     mode: 0644
+  when: (ansible_facts['distribution'] == "CentOS")
   register: copy_vip_route
   tags: configuration
 
-- name: Create rule file for default interface
+- name: Create rule file for default interface for Centos
   become: true
   template:
     src: ruledefault.j2
@@ -29,10 +31,11 @@
     owner: root
     group: root
     mode: 0644
+  when: (ansible_facts['distribution'] == "CentOS")
   register: copy_rule_default
   tags: configuration
 
-- name: Create rule file for vip interface
+- name: Create rule file for vip interface for Centos
   become: true
   template:
     src: rulevipdev.j2
@@ -40,10 +43,11 @@
     owner: root
     group: root
     mode: 0644
+  when: (ansible_facts['distribution'] == "CentOS")
   register: copy_rule_vip
   tags: configuration
 
-- name: Create vip interface config file
+- name: Create vip interface config file for Centos
   become: true
   template:
     src: ifcfg-eth.j2
@@ -51,24 +55,27 @@
     owner: root
     group: root
     mode: 0644
+  when: (ansible_facts['distribution'] == "CentOS")
   register: create_config_file_eth
   tags: configuration  
 
-- name: Insert 100 t1 entry in /etc/iproute2/rt_tables
+- name: Insert 100 t1 entry in /etc/iproute2/rt_tables for Centos
   become: true
   lineinfile:
     path: /etc/iproute2/rt_tables
     line: '100 t1'
+  when: (ansible_facts['distribution'] == "CentOS")
   tags: configuration
 
-- name: Insert 101 t2 entry in /etc/iproute2/rt_tables
+- name: Insert 101 t2 entry in /etc/iproute2/rt_tables for Centos
   become: true
   lineinfile:
     path: /etc/iproute2/rt_tables
     line: '101 t2'
+  when: (ansible_facts['distribution'] == "CentOS")
   tags: configuration
 
-- name: Copy sysctl parameter
+- name: Copy sysctl parameter for Centos
   become: true
   template:
     src: 98-2netaws.conf.j2
@@ -76,9 +83,10 @@
     owner: root
     group: root
     mode: 0644
+  when: (ansible_facts['distribution'] == "CentOS")
   tags: configuration
 
-- name: Create aws-escalation script
+- name: Create aws-escalation script for Centos
   become: true
   template:
     src: aws-escalation.j2
@@ -86,9 +94,10 @@
     owner: root
     group: root
     mode: 0755
+  when: (ansible_facts['distribution'] == "CentOS")
   tags: configuration
 
-- name: Create aws-de-escalation script
+- name: Create aws-de-escalation script for Centos
   become: true
   template:
     src: aws-de-escalation.j2
@@ -96,6 +105,7 @@
     owner: root
     group: root
     mode: 0755
+  when: (ansible_facts['distribution'] == "CentOS")
   tags: configuration
 
 - name: Create file track.sh
