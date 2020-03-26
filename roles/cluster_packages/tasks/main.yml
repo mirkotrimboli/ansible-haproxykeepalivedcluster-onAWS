@@ -1,19 +1,19 @@
 ---
-- name: Upgrade all packages to the latest version
+- name: Upgrade all packages to the latest version for Centos
   yum:
     name: '*'
     state: latest
   when: (ansible_facts['distribution'] == "CentOS")
   tags: prerequisite
 
-- name: Upgrade all packages to the latest version
+- name: Upgrade all packages to the latest version for Ubuntu
   apt:
     name: "*"
     state: latest
   when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
-- name: Install unzip server packages
+- name: Install unzip server packages for Centos
   yum:
     name: unzip
     state: present
@@ -21,7 +21,7 @@
   register: unzipinstalled
   tags: prerequisite
 
-- name: Install unzip server packages
+- name: Install unzip server packages for Ubuntu
   apt:
     name: unzip
     state: latest
@@ -59,56 +59,56 @@
   become: yes
   tags: prerequisite
 
-- name: Install bash-completion
+- name: Install bash-completion for Centos
   yum:
     name: bash-completion-2.1-6.el7.noarch
     state: present
   when: (ansible_facts['distribution'] == "CentOS")
   tags: prerequisite
 
-- name: Install bash-completion
+- name: Install bash-completion for Ubuntu
   apt:
     name: bash-completion
     state: latest
   when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
-- name: Install haproxy
+- name: Install haproxy for Centos
   yum:
     name: haproxy
     state: present
   when: (ansible_facts['distribution'] == "CentOS")
   tags: prerequisite
 
-- name: Install haproxy
+- name: Install haproxy for Ubuntu
   apt:
     name: haproxy
     state: latest
   when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
-- name: Install keepalived
+- name: Install keepalived for Centos
   yum:
     name: keepalived.x86_64
     state: present
   when: (ansible_facts['distribution'] == "CentOS")
   tags: prerequisite
 
-- name: Install keepalived
+- name: Install keepalived for Ubuntu
   apt:
     name: keepalived
     state: latest
   when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
-- name: Upgrade all packages
+- name: Upgrade all packages for Centos
   yum:
     name: '*'
     state: latest
   when: (ansible_facts['distribution'] == "CentOS")
   tags: prerequisite
 
-- name: Upgrade all packages to the latest version
+- name: Upgrade all packages to the latest version for Ubuntu
   apt:
     name: "*"
     state: latest
