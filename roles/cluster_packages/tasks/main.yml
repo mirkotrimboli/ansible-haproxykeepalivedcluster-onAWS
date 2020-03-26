@@ -10,7 +10,7 @@
   apt:
     name: "*"
     state: latest
-  when: (ansible_facts['distribution'] == "Debian")
+  when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
 - name: Install unzip server packages
@@ -25,7 +25,7 @@
   apt:
     name: unzip
     state: latest
-  when: (ansible_facts['distribution'] == "Debian")
+  when: (ansible_facts['distribution'] == "Ubuntu")
   register: unzipinstalled
   tags: prerequisite
 
@@ -70,7 +70,7 @@
   apt:
     name: bash-completion
     state: latest
-  when: (ansible_facts['distribution'] == "Debian")
+  when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
 - name: Install haproxy
@@ -84,7 +84,7 @@
   apt:
     name: haproxy
     state: latest
-  when: (ansible_facts['distribution'] == "Debian")
+  when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
 - name: Install keepalived
@@ -98,7 +98,7 @@
   apt:
     name: keepalived
     state: latest
-  when: (ansible_facts['distribution'] == "Debian")
+  when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
 - name: Upgrade all packages
@@ -112,5 +112,5 @@
   apt:
     name: "*"
     state: latest
-  when: (ansible_facts['distribution'] == "Debian")
+  when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
