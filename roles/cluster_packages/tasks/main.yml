@@ -1,14 +1,32 @@
 ---
-- name: Upgrade all packages
+- name: Upgrade all packages to the latest version
   yum:
     name: '*'
     state: latest
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: prerequisite
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+  when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite
 
 - name: Install unzip server packages
   yum:
     name: unzip
     state: present
+  when: (ansible_facts['distribution'] == "CentOS")
+  register: unzipinstalled
+  tags: prerequisite
+
+- name: Install unzip server packages
+  apt:
+    name: unzip
+    state: present
+  when: (ansible_facts['distribution'] == "Debian")
+  register: unzipinstalled
   tags: prerequisite
 
 - name: Unarchive awscliv2.zip in /root
@@ -18,11 +36,14 @@
     owner: root
     group: root
     mode: '0755'
+  when: unzipinstalled is succeeded
+  register: unarchived
   tags: prerequisite
 
 - name: Check if /usr/local/aws-cli exist - Exit if not
   stat:
     path: /usr/local/aws-cli
+  when: unarchived is succeeded
   register: foundedDir
   tags: prerequisite
 
@@ -42,22 +63,54 @@
   yum:
     name: bash-completion-2.1-6.el7.noarch
     state: present
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: prerequisite
+
+- name: Install bash-completion
+  apt:
+    name: bash-completion
+    state: present
+  when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite
 
 - name: Install haproxy
   yum:
     name: haproxy
     state: present
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: prerequisite
+
+- name: Install haproxy
+  apt:
+    name: haproxy
+    state: present
+  when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite
 
 - name: Install keepalived
   yum:
     name: keepalived.x86_64
     state: present
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: prerequisite
+
+- name: Install keepalived
+  apt:
+    name: keepalived
+    state: present
+  when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite
 
 - name: Upgrade all packages
   yum:
     name: '*'
     state: latest
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: prerequisite
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+  when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite

@@ -1,8 +1,10 @@
 [master]
-testkeeproxy01 ansible_user=centos
+#testkeeproxy01 ansible_user=centos
+testubukeeproxy1 ansible_user=ubuntu
 
 [backup]
-testkeeproxy02 ansible_user=centos
+#testkeeproxy02 ansible_user=centos
+testubukeeproxy1 ansible_user=ubuntu
 
 [cluster:children]
 master
