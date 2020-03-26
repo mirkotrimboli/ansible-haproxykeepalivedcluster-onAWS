@@ -24,7 +24,7 @@
 - name: Install unzip server packages
   apt:
     name: unzip
-    state: present
+    state: latest
   when: (ansible_facts['distribution'] == "Debian")
   register: unzipinstalled
   tags: prerequisite
@@ -69,7 +69,7 @@
 - name: Install bash-completion
   apt:
     name: bash-completion
-    state: present
+    state: latest
   when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite
 
@@ -83,7 +83,7 @@
 - name: Install haproxy
   apt:
     name: haproxy
-    state: present
+    state: latest
   when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite
 
@@ -97,7 +97,7 @@
 - name: Install keepalived
   apt:
     name: keepalived
-    state: present
+    state: latest
   when: (ansible_facts['distribution'] == "Debian")
   tags: prerequisite
 
