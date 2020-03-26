@@ -12,10 +12,10 @@ vrrp_instance VI_1 {
   unicast_src_ip {{ ansible_ens5.ipv4.address }}   # Unicast specific option, this is the IP of the interface keepalived listens on
 {% if ansible_ens5.ipv4.address == ipnode1}
   unicast_peer {                 # Unicast specific option, this is the IP of the peer instance
-     {{ ipnode1 }}
+     {{ ipnode2 }}
 {% if ansible_ens5.ipv4.address == ipnode2}
   unicast_peer {                 # Unicast specific option, this is the IP of the peer instance
-     {{ ipnode2 }}
+     {{ ipnode1 }}
    }
 
   virtual_ipaddress {
