@@ -1,9 +1,9 @@
-[node1]
+[master]
 testkeeproxy01 ansible_user=centos
 
-[node2]
+[backup]
 testkeeproxy02 ansible_user=centos
 
 [cluster:children]
-node1
-node2
+master
+backup

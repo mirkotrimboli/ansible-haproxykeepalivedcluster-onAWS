@@ -1,0 +1,10 @@
+---
+- name: Create keepalived config file
+  become: true
+  template:
+    src: keepalived-backupconf.j2
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0644
+  tags: configuration
