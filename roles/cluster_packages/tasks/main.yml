@@ -13,7 +13,7 @@
 
 - name: Unarchive awscliv2.zip in /root
   unarchive:
-    src: /home/centos/ansible-posqlpgpoolcl3/awscliv2.zip
+    src: /home/centos/ansible-playbooks/awscliv2.zip
     dest: /root
     owner: root
     group: root
