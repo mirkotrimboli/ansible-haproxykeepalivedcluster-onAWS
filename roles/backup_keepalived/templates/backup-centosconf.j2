@@ -9,15 +9,13 @@ vrrp_instance VI_1 {
   state BACKUP
   virtual_router_id 51          # Assign one ID for this route
   priority 100                  # 101 on master, 100 on backup
-  unicast_src_ip {{ ipnode2 }}   # Unicast specific option, this is the IP of the interface keepalived listens on
+  unicast_src_ip {{ ipcentos2 }}   # Unicast specific option, this is the IP of the interface keepalived listens on
   unicast_peer {                 # Unicast specific option, this is the IP of the peer instance
-     {{ ipnode1 }}
+     {{ ipcentos1 }}
    }
 
-  virtual_ipaddress {
-      {{ ipvip }}                 # the virtual IP
   }
-  notify /usr/local/bin/track.sh
+  notify /etc/keepalived/failover.sh
   track_script {
       chk_haproxy
   }

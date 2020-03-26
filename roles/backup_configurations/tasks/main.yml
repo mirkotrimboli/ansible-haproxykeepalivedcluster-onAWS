@@ -1,0 +1,30 @@
+---
+- name: Create file failover.sh for Centos
+  copy:
+    dest: /etc/keepalived/failover.sh
+    content: |
+      #!/bin/bash
+
+      /usr/bin/aws ec2 disassociate-address --public-ip {{ ipvip }}
+      /usr/bin/aws ec2 associate-address --public-ip {{ ipvip }} --instance-id {{ istance_centos1_id }}
+    owner: root
+    group: root
+    mode: '0700'
+    backup: yes
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: configuration
+
+- name: Create file failover.sh for Ubuntu
+  copy:
+    dest: /etc/keepalived/failover.sh
+    content: |
+      #!/bin/bash
+
+      /usr/bin/aws ec2 disassociate-address --public-ip {{ ipvip }}
+      /usr/bin/aws ec2 associate-address --public-ip {{ ipvip }} --instance-id {{ istance_ubuntu1_id }}
+    owner: root
+    group: root
+    mode: '0700'
+    backup: yes
+  when: (ansible_facts['distribution'] == "Ubuntu")
+  tags: configuration

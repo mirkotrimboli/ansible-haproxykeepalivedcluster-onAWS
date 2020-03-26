@@ -4,19 +4,20 @@
   roles:
     - { role: cluster_packages, tags: [ 'prerequisite' ] }
     - { role: cluster_services, tags: [ 'prerequisite' ] }
-    - { role: cluster_configurations, tags: [ 'configuration' ] }
 
-#- hosts: master
-#  become: yes
-#  roles:
-#    - { role: master_keepalived, tags: [ 'configuration' ] }
+- hosts: master
+  become: yes
+  roles:
+    - { role: master_keepalived, tags: [ 'configuration' ] }
+    - { role: master_configurations, tags: [ 'configuration' ] }
 
-#- hosts: backup
-#  become: yes
-#  roles:
-#    - { role: backup_keepalived, tags: [ 'configuration' ] }
+- hosts: backup
+  become: yes
+  roles:
+    - { role: backup_keepalived, tags: [ 'configuration' ] }
+    - { role: backup_configurations, tags: [ 'configuration' ] }
 
-#- hosts: cluster
-#  become: yes
-#  roles:
-#    - { role: cluster_start, tags: [ 'start' ] }
+- hosts: cluster
+  become: yes
+  roles:
+    - { role: cluster_start, tags: [ 'start' ] }
