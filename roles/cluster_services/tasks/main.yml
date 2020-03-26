@@ -1,9 +1,10 @@
 ---
-- name: Ensure SELinux is set to disabled mode
+- name: Ensure SELinux is set to disabled mode for Centos
   lineinfile:
     path: /etc/selinux/config
     regexp: '^SELINUX='
     line: SELINUX=disabled
+  when: (ansible_facts['distribution'] == "CentOS")
   tags: prerequisite
 
 - name: Create file aws.sh
