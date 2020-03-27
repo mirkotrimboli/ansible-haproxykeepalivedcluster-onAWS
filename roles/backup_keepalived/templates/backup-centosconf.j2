@@ -20,9 +20,10 @@ vrrp_instance VI_1
   unicast_src_ip {{ ipcentos2 }}   # Unicast specific option, this is the IP of the interface keepalived listens on
   unicast_peer                     # Unicast specific option, this is the IP of the peer instance
     {{ ipcentos1 }}
+  
   track_script
-  {
+  
     check_haproxy
-  }
+  
   notify /etc/keepalived/failover.sh
 }
