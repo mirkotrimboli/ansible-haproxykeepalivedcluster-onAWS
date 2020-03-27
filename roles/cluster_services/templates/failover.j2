@@ -7,7 +7,7 @@ EIP={{ ipvip }}
 INSTANCE_ID=`ls /var/lib/amazon/ssm | grep i-`
 
 case $STATE in
-    "MASTER") /usr/local/bin/aws ec2 associate-address --public-ip $EIP --instance-id $INSTANCE_ID; /bin/systemctl start haproxy.service
+    "MASTER") /usr/local/bin/aws ec2 associate-address --public-ip $EIP --instance-id $INSTANCE_ID
         exit 0
         ;;
     "BACKUP") /usr/local/bin/aws ec2 disassociate-address --public-ip $EIP

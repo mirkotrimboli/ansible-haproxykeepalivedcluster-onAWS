@@ -31,26 +31,24 @@
     state: stopped
   tags: prerequisite
 
-- name: Create file failover.sh for Centos
+- name: Create file failover.sh
   become: true
   template:
-    src: failover-centos.j2
+    src: failover.j2
     dest: /etc/keepalived/failover.sh
     owner: root
     group: root
     mode: 0700
-  when: (ansible_facts['distribution'] == "CentOS")
   tags: configuration
 
-- name: Create file failover.sh for Ubuntu
+- name: Create file checkHaproxy.sh
   become: true
   template:
-    src: failover-ubuntu.j2
-    dest: /etc/keepalived/failover.sh
+    src: checkHaproxy.j2
+    dest: /etc/keepalived/checkHaproxy.sh
     owner: root
     group: root
     mode: 0700
-  when: (ansible_facts['distribution'] == "Ubuntu")
   tags: configuration
 
 - name: Reloading daemons
