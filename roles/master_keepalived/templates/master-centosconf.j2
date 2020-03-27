@@ -18,8 +18,8 @@ vrrp_instance VI_1
   virtual_router_id 51          # Assign one ID for this route
   priority 101                  # 101 on master, 100 on backup
   unicast_src_ip {{ ipcentos1 }}   # Unicast specific option, this is the IP of the interface keepalived listens on
-  unicast_peer {{ ipcentos2 }}     # Unicast specific option, this is the IP of the peer instance
-  
+  unicast_peer                     # Unicast specific option, this is the IP of the peer instance
+    {{ ipcentos2 }}
   track_script
   {
     check_haproxy
