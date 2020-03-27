@@ -10,10 +10,10 @@ case $STATE in
     "MASTER") /usr/local/bin/aws ec2 associate-address --public-ip $EIP --instance-id $INSTANCE_ID; /bin/systemctl start haproxy.service
         exit 0
         ;;
-    "BACKUP") /usr/local/bin/aws ec2 disassociate-address --public-ip $EIP; /bin/systemctl stop haproxy.service
+    "BACKUP") /usr/local/bin/aws ec2 disassociate-address --public-ip $EIP
         exit 0
         ;;
-    "FAULT")  /usr/local/bin/aws ec2 disassociate-address --public-ip $EIP; /bin/systemctl stop haproxy.service
+    "FAULT")  /usr/local/bin/aws ec2 disassociate-address --public-ip $EIP
         exit 0
         ;;
     *)        echo "unknown state"
