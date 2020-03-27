@@ -73,6 +73,20 @@
   when: (ansible_facts['distribution'] == "Ubuntu")
   tags: prerequisite
 
+- name: Install cloud-utils for Centos
+  yum:
+    name: cloud-utils
+    state: present
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: prerequisite
+
+- name: Install cloud-utils for Ubuntu
+  apt:
+    name: cloud-utils
+    state: latest
+  when: (ansible_facts['distribution'] == "Ubuntu")
+  tags: prerequisite
+
 - name: Install haproxy for Centos
   yum:
     name: haproxy
