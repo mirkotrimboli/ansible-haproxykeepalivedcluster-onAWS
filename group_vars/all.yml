@@ -1,5 +1,3 @@
-network: 10.206.210.128/27
-gateway: 10.206.210.129
 hostcentos1: testkeeproxy01
 hostcentos2: testkeeproxy02
 hostubuntu1: testubukeeproxy1
@@ -9,10 +7,4 @@ ipcentos2: 10.206.210.147
 ipubuntu1: 10.206.210.148
 ipubuntu2: 10.206.210.156
 ipvip: 108.128.117.55
-istance_centos1_id: i-044da0901300a5362
-istance_centos2_id: i-08718924ba03a91da
-istance_ubuntu1_id: i-014eeb794aae4fe99
-istance_ubuntu2_id: i-0faa762e6030ee462
 pri_net_int: eth0
-sec_net_int: eth1
-aws_netint_id: eni-08770b5291f7eee93
