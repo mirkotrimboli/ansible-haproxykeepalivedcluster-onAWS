@@ -31,6 +31,28 @@
     state: stopped
   tags: prerequisite
 
+- name: Create file failover.sh for Centos
+  become: true
+  template:
+    src: failover-centos.j2
+    dest: /etc/keepalived/failover.sh
+    owner: root
+    group: root
+    mode: 0700
+  when: (ansible_facts['distribution'] == "CentOS")
+  tags: configuration
+
+- name: Create file failover.sh for Ubuntu
+  become: true
+  template:
+    src: failover-ubuntu.j2
+    dest: /etc/keepalived/failover.sh
+    owner: root
+    group: root
+    mode: 0700
+  when: (ansible_facts['distribution'] == "Ubuntu")
+  tags: configuration
+
 - name: Reloading daemons
   command: systemctl daemon-reload
   tags: prerequisite

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+TYPE=$1
+NAME=$2
+STATE=$3
+
+case $STATE in
+    "MASTER") /usr/bin/aws ec2 associate-address --public-ip {{ ipvip }} --instance-id {{ istance_centos1_id }}; /usr/bin/systemctl start haproxy.service
+        exit 0
+        ;;
+    "BACKUP") /usr/bin/aws ec2 disassociate-address --public-ip {{ ipvip }}; /usr/bin/systemctl stop haproxy.service
+        exit 0
+        ;;
+    "FAULT")  /usr/bin/aws ec2 disassociate-address --public-ip {{ ipvip }}; /usr/bin/systemctl stop haproxy.service
+        exit 0
+        ;;
+    *)        echo "unknown state"
+        exit 1
+        ;;
+esac

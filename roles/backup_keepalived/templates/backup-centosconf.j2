@@ -1,6 +1,6 @@
 vrrp_script check_haproxy
 {
-    script "pgrep haproxy"   # verify the pid existance (DEVO PROVARE service haproxy status)
+    script "killall -0 sshd"   # verify the pid existance
   interval 5                    # check every 2 seconds
   weight 2                      # add 2 points of prio if OK
   rise 2
