@@ -1,6 +1,10 @@
+global_defs
+{
+script_user root
+}
 vrrp_script check_haproxy
 {
-    script "killall -0 sshd"   # verify the pid existance
+    script "cat /var/run/haproxy.pid"   # verify the pid existance
   interval 5                    # check every 2 seconds
   weight 2                      # add 2 points of prio if OK
   rise 2
