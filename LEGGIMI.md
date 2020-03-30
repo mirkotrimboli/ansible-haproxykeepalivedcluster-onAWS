@@ -1,5 +1,5 @@
 # ansible-keeproxycluster-onaws
-Produzione di un cluster HAproxy con ElasticIP gestito da keepalive su AWS
+Produzione di un cluster HAproxy esposto verso l'esterno con ElasticIP gestito da keepalive su AWS
 
 # Prerequisiti AWS
 Assicurarsi che sull'ambiente AWS sia presente:

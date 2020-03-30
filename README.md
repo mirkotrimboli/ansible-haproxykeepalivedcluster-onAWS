@@ -1,5 +1,5 @@
 # ansible-keeproxycluster-onaws
-Delivery an HAproxy cluster with ElasticIP managed by keepalive on AWS
+Delivery an HAproxy cluster exposed to the outside with ElasticIP managed by keepalive on AWS
 
 # AWS prerequisites
 Make sure that the AWS environment has:
