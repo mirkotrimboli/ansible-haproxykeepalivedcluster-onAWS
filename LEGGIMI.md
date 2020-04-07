@@ -22,4 +22,4 @@ Sul server Ansible:
 
 lanciare il playbook ansible con il comando:
 
-* ansible-playbook -i keeproxy.hosts keeproxy.yml --key-file=./chiave.pem --user=centos
+* ansible-playbook -i keeproxy.hosts keeproxy.yml --key-file=./chiave.pem
